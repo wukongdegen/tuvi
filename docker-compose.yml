@@ -1,0 +1,31 @@
+services:
+  api:
+    container_name: tuvi-api
+    build:
+      context: .
+      target: api
+    environment:
+      PORT: 8788
+    volumes:
+      - ./key.txt:/app/key.txt:ro
+    expose:
+      - "8788"
+    restart: unless-stopped
+
+  web:
+    container_name: tuvi-web
+    build:
+      context: .
+      target: web
+    depends_on:
+      - api
+    expose:
+      - "80"
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy
+
+networks:
+  proxy:
+    external: true
