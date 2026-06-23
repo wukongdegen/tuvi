@@ -261,27 +261,27 @@ function App() {
           <fieldset className="date-group">
             <legend><CalendarDays size={16} />{t.birthDate}</legend>
             <div className="date-grid">
-              <label>
+              <div className="date-field">
                 <span>{t.day}</span>
-                <select value={form.day} onChange={event => updateField('day', event.target.value)}>
+                <select aria-label={t.day} value={form.day} onChange={event => updateField('day', event.target.value)}>
                   <option value="">{t.day}</option>
                   {days.map(day => <option key={day} value={day}>{day}</option>)}
                 </select>
-              </label>
-              <label>
+              </div>
+              <div className="date-field">
                 <span>{t.month}</span>
-                <select value={form.month} onChange={event => updateField('month', event.target.value)}>
+                <select aria-label={t.month} value={form.month} onChange={event => updateField('month', event.target.value)}>
                   <option value="">{t.month}</option>
                   {months.map(month => <option key={month} value={month}>{month}</option>)}
                 </select>
-              </label>
-              <label>
+              </div>
+              <div className="date-field">
                 <span>{t.year}</span>
-                <select value={form.year} onChange={event => updateField('year', event.target.value)}>
+                <select aria-label={t.year} value={form.year} onChange={event => updateField('year', event.target.value)}>
                   <option value="">{t.year}</option>
                   {years.map(year => <option key={year} value={year}>{year}</option>)}
                 </select>
-              </label>
+              </div>
             </div>
           </fieldset>
 

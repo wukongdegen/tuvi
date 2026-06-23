@@ -166,7 +166,7 @@ h1 {
 }
 
 .field,
-.date-grid label {
+.date-field {
   display: grid;
   gap: 8px;
 }
@@ -192,6 +192,7 @@ textarea {
   background: #fffefa;
   outline: 0;
   padding: 0 12px;
+  font-size: 16px;
 }
 
 input:focus,
@@ -212,7 +213,7 @@ fieldset {
   gap: 8px;
 }
 
-.date-grid label span {
+.date-field span {
   font-size: 11px;
   color: #727a74;
   font-weight: 600;
