@@ -219,6 +219,35 @@ fieldset {
   font-weight: 600;
 }
 
+.date-select-button {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fffefa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.date-select-button > span {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date-select-button:focus-visible {
+  outline: 2px solid rgba(101, 121, 103, .34);
+  outline-offset: 2px;
+}
+
 .calendar-toggle > div {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -377,6 +406,80 @@ textarea {
   line-height: 1.5;
   margin: 20px 0 0;
   padding-left: 12px;
+}
+
+.picker-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(38, 53, 47, .18);
+  padding: 16px;
+}
+
+.picker-sheet {
+  width: min(100%, 440px);
+  max-height: min(74vh, 620px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.picker-head {
+  min-height: 54px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px 0 16px;
+}
+
+.picker-head strong {
+  font: 600 18px 'Fraunces', serif;
+}
+
+.picker-head button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #fffefa;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.picker-options {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 14px;
+}
+
+.picker-options.year-options {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.picker-options button {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fffefa;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.picker-options button.selected {
+  border-color: var(--sage);
+  background: var(--soft);
+  color: #435c49;
 }
 
 footer {

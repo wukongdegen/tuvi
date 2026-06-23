@@ -156,6 +156,7 @@ function App() {
   const [isDemo, setIsDemo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [picker, setPicker] = useState(null);
   const t = copy[lang];
 
   useEffect(() => {
@@ -171,6 +172,16 @@ function App() {
   function updateField(field, value) {
     setForm(current => ({ ...current, [field]: value }));
     setError('');
+  }
+
+  function openPicker(field, label, options) {
+    setPicker({ field, label, options });
+  }
+
+  function choosePickerValue(value) {
+    if (!picker) return;
+    updateField(picker.field, String(value));
+    setPicker(null);
   }
 
   function selectTopic(topicKey) {
@@ -263,24 +274,24 @@ function App() {
             <div className="date-grid">
               <div className="date-field">
                 <span>{t.day}</span>
-                <select aria-label={t.day} value={form.day} onChange={event => updateField('day', event.target.value)}>
-                  <option value="">{t.day}</option>
-                  {days.map(day => <option key={day} value={day}>{day}</option>)}
-                </select>
+                <button type="button" className="date-select-button" onClick={() => openPicker('day', t.day, days)}>
+                  <span>{form.day || t.day}</span>
+                  <ChevronDown size={15} />
+                </button>
               </div>
               <div className="date-field">
                 <span>{t.month}</span>
-                <select aria-label={t.month} value={form.month} onChange={event => updateField('month', event.target.value)}>
-                  <option value="">{t.month}</option>
-                  {months.map(month => <option key={month} value={month}>{month}</option>)}
-                </select>
+                <button type="button" className="date-select-button" onClick={() => openPicker('month', t.month, months)}>
+                  <span>{form.month || t.month}</span>
+                  <ChevronDown size={15} />
+                </button>
               </div>
               <div className="date-field">
                 <span>{t.year}</span>
-                <select aria-label={t.year} value={form.year} onChange={event => updateField('year', event.target.value)}>
-                  <option value="">{t.year}</option>
-                  {years.map(year => <option key={year} value={year}>{year}</option>)}
-                </select>
+                <button type="button" className="date-select-button" onClick={() => openPicker('year', t.year, years)}>
+                  <span>{form.year || t.year}</span>
+                  <ChevronDown size={15} />
+                </button>
               </div>
             </div>
           </fieldset>
@@ -350,6 +361,28 @@ function App() {
         <span>{t.brand}{t.domain}</span>
         <p>{t.note}</p>
       </footer>
+
+      {picker && (
+        <div className="picker-overlay" role="presentation" onClick={() => setPicker(null)}>
+          <section className="picker-sheet" role="dialog" aria-modal="true" aria-label={picker.label} onClick={event => event.stopPropagation()}>
+            <div className="picker-head">
+              <strong>{picker.label}</strong>
+              <button type="button" onClick={() => setPicker(null)} aria-label="Close">×</button>
+            </div>
+            <div className={`picker-options ${picker.field === 'year' ? 'year-options' : ''}`}>
+              {picker.options.map(option => {
+                const value = String(option);
+                const selected = form[picker.field] === value;
+                return (
+                  <button type="button" key={value} className={selected ? 'selected' : ''} onClick={() => choosePickerValue(value)}>
+                    {value}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
